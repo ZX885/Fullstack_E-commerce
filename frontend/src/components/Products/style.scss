@@ -1,0 +1,25 @@
+#Product-page {
+    color: aliceblue;
+    h1{
+        display: flex;
+        justify-content: center;
+    }
+    .new-arrivals{
+        display: flex;
+        justify-content: space-around;
+        align-items: space-around;
+    }
+
+    .items {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+
+        .product-item-wrapper {
+            color: aliceblue;
+            // background: linear-gradient(180deg, rgb(147, 147, 147) 0%, rgb(226 226 226 / 0%) 62%, rgb(155 202 132) 100%);
+            padding: 10px;
+            border-radius: 10px;
+        }
+    }
+}
