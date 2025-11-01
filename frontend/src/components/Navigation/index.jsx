@@ -16,27 +16,27 @@ export default function Nav() {
                     <div className="links">
                         <span className="nav-link">
                             <Link to={"/"}>
-                                Home
+                                Главная
                             </Link>
                         </span>
                         <span className="nav-link">
                             <Link>
-                                Vegetables
+                                Сообщение
                             </Link>
                         </span>
                         <span className="nav-link">
                             <Link to={'products'}>
-                                Fruits
+                                Корзинка
                             </Link>
                         </span>
                         <span className="nav-link">
                             <Link>
-                                Drinks
+                                Профиль
                             </Link>
                         </span>
                         <span className="nav-link">
                             <Link to={'create_product'}>
-                                create_product
+                                Создать товар
                             </Link>
                         </span>
                     </div>
