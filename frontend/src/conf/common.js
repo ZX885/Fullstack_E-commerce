@@ -1,5 +1,5 @@
 import {axiosCall} from "./axios.js";
-import { BASE_URL } from "./store.js";
+// import { BASE_URL } from "./store.js";
 
 const ACCESS_TOKEN_KEY = 'access_token';
 const REFRESH_TOKEN_KEY = 'refresh_token';
@@ -15,10 +15,16 @@ async function getFood(){
     console.log(response);
     return response
 }
+async function deleteFood(id){
+    const response = await axiosCall(`/api/foods/${id}/`,null,null,"DELETE")
+    console.log(response);
+    return response
+}
 
 export {
     isLoggedIn,
     getFood,
+    deleteFood,
     ACCESS_TOKEN_KEY,
     REFRESH_TOKEN_KEY
 }

@@ -17,6 +17,15 @@ class FoodList(NoAuthApiView):
             serializer.save()
             return Response(serializer.data, status=HTTP_201_CREATED)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+    
+class FoodDelete(NoAuthApiView):
+    def delete_food(request, pk):
+        try:
+            food = Foods.objects.get(id=pk)
+            food.delete()
+            return Response({'message':'Food deleted successfuly'}, status=HTTP_204_NO_CONTENT)
+        except Food.DoesNotExist:
+            return Response({'error': 'Food not found'}, status=HTTP_404_NOT_FOUND)
 
 class FoodDetails(NoAuthApiView):
     """Get Food details"""

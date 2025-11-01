@@ -1,23 +1,24 @@
 import { Outlet, Link } from "react-router-dom";
 import styles from './style.scss'
 import logo from './Logo.png'
+import Products from "../Products";
 
 
 export default function Nav() {
     return (
-        <div style={styles}>
+        <div className="head" style={styles}>
             <nav>
                 <div>
                     <img src={logo} alt="" />
                 </div>
 
                 <div className="link">
-                    <h3>
-                        <Link to={"/"}>
-                            Home
-                        </Link>
-                    </h3>
                     <div className="links">
+                        <span className="nav-link">
+                            <Link to={"/"}>
+                                Home
+                            </Link>
+                        </span>
                         <span className="nav-link">
                             <Link>
                                 Vegetables
@@ -39,6 +40,9 @@ export default function Nav() {
                             </Link>
                         </span>
                     </div>
+                </div>
+                <div className="add">
+                    
                 </div>
 
             </nav>

@@ -1,1 +1,37 @@
-    
+.head{
+    margin: 10px;
+    padding: 10px;
+    // max-width: 1200px;
+    justify-content: center;
+    align-items: center;
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+
+
+    .link {
+        text-align: center;
+        justify-content: center;
+        float: right;
+
+        .links {
+
+            span {
+                margin: 10px;
+            }
+            span a:hover {
+                color: rgb(51, 198, 29);
+                transition: 0.2s ease-in;
+                border-bottom: 1px solid rgb(51, 198, 29);
+            }
+
+            a {
+                font-size: 20px;
+                color: aliceblue;
+                text-decoration: none;
+            }
+        }
+    }
+}

@@ -1,6 +1,6 @@
 import './style.scss'
 import { useEffect, useState } from 'react'
-import { getFood } from '../../conf/common'
+import { deleteFood, getFood } from '../../conf/common'
 import Item from './item'
 function Products(){
     const [foods, setFoods] = useState([])
@@ -16,6 +16,15 @@ function Products(){
             // }
         }).catch(err => console.error("error: ", err))
     }, [])
+    const handleDelete = async (id) =>{
+        try{
+            await deleteFood(id);
+            setFoods(foods.filter(food=>food.id !==id));
+        } catch (err){
+            console.error(err);
+            alert("Error deleting food!")
+        }
+    };
 
     return(
         <div id='Product-page'>
@@ -31,6 +40,7 @@ function Products(){
                 {
                     foods.map((food, index)=>{
                         return(
+                            <div>
                             <Item
                                 key={index}
                                 name={food.name}
@@ -38,8 +48,10 @@ function Products(){
                                 image={food.image}
                                 category={food.category}
                                 quantity={food.quantity}
-                                itemID={food.id}
+                                id={food.id}
                             />
+                            <button onClick={()=> handleDelete(food.id)}> Delete </button>
+                            </div>
                         )
                     })
                 }

@@ -1,9 +1,11 @@
 import './style.scss'
 import { BASE_URL } from '../../conf/store'
+import { deleteFood } from '../../conf/common';
 // import { axiosCall } from '../../conf/axios'
 
 
 function Item(props) {
+    console.log("props.id =>", props.id);
 
     return (
         <div className="product-item-wrapper">
@@ -21,9 +23,12 @@ function Item(props) {
                     <span>${props.price}</span>
                 </div>
                 <span>Left: {props.quantity}</span>
+              
+                
             </div>
         </div>
     )
+    
 }
 // function Item({ name, price, image, quantity, category, itemID }) {
 //     return (

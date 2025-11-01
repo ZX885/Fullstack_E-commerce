@@ -1,6 +1,6 @@
 import './index.scss'
 import AllComponents from './components/AllComponents.jsx'
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
 
 
 function App() {
