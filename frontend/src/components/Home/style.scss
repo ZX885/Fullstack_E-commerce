@@ -89,8 +89,18 @@
             margin: 10px;
             height: 250px;
             background-color: rgba(128, 128, 128, 0.505);
+            transition: 0.3s ease-in-out;
             width: 200px;
             color: aliceblue;
+        }
+        .categories:hover{
+            padding: 10px;
+        }
+        .fruits{
+            background: url(category_photos/fruits.png) center;
+        }
+        .drinks{
+            background: url(category_photos/drinks.png) center;
         }
         a{
             text-decoration: none;

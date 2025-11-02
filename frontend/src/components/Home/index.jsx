@@ -2,6 +2,7 @@ import './style.scss'
 import foto from './foto.jpg'
 import svg from './Union.svg'
 import pepsi from './pepsi.jpg'
+import Footer from '../Footer'
 function Home() {
 
     return (
@@ -142,17 +143,15 @@ function Home() {
                 <div className="category">
                     <div><h1>Категории</h1></div>
                     <div className='categ'>
-                        <a href="/products"><div className="categories fruits">Фрукты</div></a>
-                        <a href=""><div className="categories vegetables">Овощи</div></a>
-                        <a href=""><div className="categories milk_p">Молочные</div></a>
-                        <a href=""><div className="categories drinks">Напитки</div></a>
-                        <a href=""><div className="categories gadgets">Электроника</div></a>
-                        <a href=""><div className="categories chemists">Средства</div></a>
+                        <a href="/products"><h2 className="categories fruits">Фрукты</h2></a>
+                        <a href=""><h2 className="categories vegetables">Овощи</h2></a>
+                        <a href=""><h2 className="categories milk_p">Молочные</h2></a>
+                        <a href=""><h2 className="categories drinks">Напитки</h2></a>
+                        <a href=""><h2 className="categories gadgets">Электроника</h2></a>
+                        <a href=""><h2 className="categories chemists">Средства</h2></a>
                     </div>
                 </div>
             </div>
-
-
         </>
     )
 }

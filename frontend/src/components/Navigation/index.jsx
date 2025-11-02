@@ -2,6 +2,7 @@ import { Outlet, Link } from "react-router-dom";
 import styles from './style.scss'
 import logo from './Logo.png'
 import Products from "../Products";
+import Footer from "../Footer";
 
 
 export default function Nav() {
@@ -46,7 +47,9 @@ export default function Nav() {
                 </div>
 
             </nav>
+            
             <Outlet />
+            <Footer></Footer>
         </div>
     )
 }
