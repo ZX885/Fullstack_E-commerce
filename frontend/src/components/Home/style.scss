@@ -89,15 +89,26 @@
             margin: 10px;
             height: 250px;
             background-color: rgba(128, 128, 128, 0.505);
-            transition: 0.3s ease-in-out;
+            transition: 0.2s ease-in-out;
             width: 200px;
             color: aliceblue;
         }
         .categories:hover{
-            padding: 10px;
+            // height: 270px;
+            // width: 220px;
+            color: gold;
         }
         .fruits{
             background: url(category_photos/fruits.png) center;
+        }
+        .vegetables{
+            background: url(category_photos/vegetables.png);
+        }
+        .milk_p{
+            background: url(category_photos/milk_p.png);
+        }
+        .gadgets{
+            background: url(category_photos/gadgets.png);
         }
         .drinks{
             background: url(category_photos/drinks.png) center;

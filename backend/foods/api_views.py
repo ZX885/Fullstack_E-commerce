@@ -1,6 +1,6 @@
 from .usecases import *
-from .models import Foods, Wishlist
-from .serializers import FoodSerializerWishlist, FoodSerializer
+from .models import Foods, Wishlist, Category
+from .serializers import FoodSerializerWishlist, FoodSerializer, CategorySerializer
 from rest_framework.response import Response
 from rest_framework.status import*
 
@@ -8,7 +8,12 @@ class FoodList(NoAuthApiView):
     """List all foods"""
     def get(self, request):
         food = Foods.objects.all()
-        serializer = FoodSerializerWishlist(food, many=True)
+        
+        category = request.query_params.get('category')
+        if category:
+            food = food.filter(category_slug=category)
+        
+        serializer = FoodSerializer(food, many=True, context={"request":request})
         return Response(serializer.data, status=HTTP_200_OK)
 
     def post(self, request):
@@ -18,6 +23,23 @@ class FoodList(NoAuthApiView):
             return Response(serializer.data, status=HTTP_201_CREATED)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
     
+    def put(self, request):
+        pass
+    
+class CategoryDetails(AuthApiView):
+    def get(self, request, slug):
+        category = get_object_or_404(Category, slug=slug)
+        serializer = CategorySerializer(category)
+        return Response(serializer.data)
+    
+    def post(self, request, slug):
+        category = CategorySerializer(data=request.data)
+        if category.is_valid():
+            category.save()
+            return Response(category.data, status=HTTP_201_CREATED)
+        
+        
+        
 class FoodDelete(NoAuthApiView):
     def delete_food(request, pk):
         try:
@@ -47,6 +69,7 @@ class FoodDetails(NoAuthApiView):
         food = Foods.objects.get(pk=pk)
         food.delete()
         return Response(status=HTTP_204_NO_CONTENT)
+    
     
 class WishlistApiView(NoAuthApiView):
 

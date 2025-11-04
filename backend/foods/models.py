@@ -4,11 +4,26 @@ from PIL import Image
 import os
 
 
+
+class Category(models.Model):
+    slug = models.SlugField(unique=True) # this is for url "name => slugify"  -approximately
+    name = models.CharField(max_length=80, unique=True)
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            from django.utils.text import slugify
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+        
+    def __str__(self):
+        return self.name
+    
+
 class Foods(models.Model):
     name = models.CharField(max_length=100)
     quantity =models.IntegerField()
     price = models.IntegerField()
-    category = models.CharField( max_length=100)
+    category: Category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     image = models.ImageField(upload_to='foods/media',
                               default='food.jpg')
     created_at = models.DateTimeField(auto_now_add=True)
