@@ -5,25 +5,13 @@ import os
 
 
 
-class Category(models.Model):
-    slug = models.SlugField(unique=True) # this is for url "name => slugify"  -approximately
-    name = models.CharField(max_length=80, unique=True)
-    
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            from django.utils.text import slugify
-            self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
-        
-    def __str__(self):
-        return self.name
     
 
 class Foods(models.Model):
     name = models.CharField(max_length=100)
     quantity =models.IntegerField()
     price = models.IntegerField()
-    category: Category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
+    category = models.CharField(max_length=100)
     image = models.ImageField(upload_to='foods/media',
                               default='food.jpg')
     created_at = models.DateTimeField(auto_now_add=True)
@@ -52,9 +40,11 @@ class Foods(models.Model):
 
 
 class Wishlist(models.Model):
-    foods = models.ManyToManyField("Foods",null=True, blank=True)
+    foods = models.ManyToManyField("Foods",null=True, blank=True, name='wishlist')
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    # def __str__(self):
-    #     return f"Wishlist of {self.owner.username}"
+    added_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"Wishlist of {self.owner.username}"
 
     

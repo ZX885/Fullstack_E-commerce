@@ -5,7 +5,7 @@ from .api_views import FoodList, FoodDetails, WishlistApiView, FoodDelete
 urlpatterns = [
     path('', FoodList.as_view()),
     path('<int:pk>/', FoodDetails.as_view()),
-    path('<int:pk>/', FoodDelete.as_view()),
+    path('<int:pk>/', FoodDelete.as_view(), name='food-delete'),
     path('wishlist/', WishlistApiView.as_view()),
 ]
 

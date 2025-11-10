@@ -14,8 +14,10 @@ class AuthApiView(NoAuthApiView):
 def get_wishlist(request):
     if request.user.is_authenticated:
         wishlist_objs = Wishlist.objects.filter(owner=request.user)
-        return wishlist_objs[0]
-    return []
+        if wishlist_objs.exists():
+            return wishlist_objs.first()
+        return None
+    return None
 
 def set_wishlist(request, food_id:int):
     if request.user.is_authenticated:
@@ -31,7 +33,7 @@ def set_wishlist(request, food_id:int):
 
 def del_food_from_wishlist(request, food_id:int):
     if request.user.is_authenticated:
-        if wishlist := WishList.objects.filter(owner=request.user)[0]:
+        if wishlist := Wishlist.objects.filter(owner=request.user)[0]:
             food = Foods.objects.get(pk=food_id)
-            wishlist.foods.remove(food_id)
+            wishlist.foods.remove()
     return

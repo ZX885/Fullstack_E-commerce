@@ -1,19 +1,15 @@
 from .usecases import *
-from .models import Foods, Wishlist, Category
-from .serializers import FoodSerializerWishlist, FoodSerializer, CategorySerializer
+from .models import Foods, Wishlist
+from .serializers import FoodSerializerWishlist, FoodSerializer
 from rest_framework.response import Response
 from rest_framework.status import*
+from rest_framework.views import*
 
 class FoodList(NoAuthApiView):
     """List all foods"""
     def get(self, request):
         food = Foods.objects.all()
-        
-        category = request.query_params.get('category')
-        if category:
-            food = food.filter(category_slug=category)
-        
-        serializer = FoodSerializer(food, many=True, context={"request":request})
+        serializer = FoodSerializer(food, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
 
     def post(self, request):
@@ -26,27 +22,15 @@ class FoodList(NoAuthApiView):
     def put(self, request):
         pass
     
-class CategoryDetails(AuthApiView):
-    def get(self, request, slug):
-        category = get_object_or_404(Category, slug=slug)
-        serializer = CategorySerializer(category)
-        return Response(serializer.data)
-    
-    def post(self, request, slug):
-        category = CategorySerializer(data=request.data)
-        if category.is_valid():
-            category.save()
-            return Response(category.data, status=HTTP_201_CREATED)
         
         
-        
-class FoodDelete(NoAuthApiView):
-    def delete_food(request, pk):
+class FoodDelete(APIView):
+    def delete_food(self, request, pk):
         try:
             food = Foods.objects.get(id=pk)
             food.delete()
             return Response({'message':'Food deleted successfuly'}, status=HTTP_204_NO_CONTENT)
-        except Food.DoesNotExist:
+        except Foods.DoesNotExist:
             return Response({'error': 'Food not found'}, status=HTTP_404_NOT_FOUND)
 
 class FoodDetails(NoAuthApiView):
@@ -73,20 +57,28 @@ class FoodDetails(NoAuthApiView):
     
 class WishlistApiView(NoAuthApiView):
 
+    # def get(self, request):
+    #     food = []
+    #     if wishlist := get_wishlist(request):
+    #         foods = wishlist.foods.all()
+    #     serializer = FoodSerializerWishlist(foods, many=True)
+    #     return Response(serializer.data, status=HTTP_200_OK)
     def get(self, request):
-        food = []
-        if wishlist := get_wishlist(request):
-            foods = wishlist.foods.all()
+        wishlist = get_wishlist(request)
+        if not wishlist:
+            return Response([], status=HTTP_200_OK)  # ✅ вернём пустой список, а не ошибку
+
+        foods = wishlist.foods.all()
         serializer = FoodSerializerWishlist(foods, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
-
 
     def post(self, request):
         print("=============================================")
         print("request.data: ", request.data)
         print("=============================================")
         food_id = request.data.get('food_id')
-        if delete := request.data.get('delete_food'):
+        delete = request.data.get('delete_food', False)
+        if delete:
             del_food_from_wishlist(request, food_id)
         else:
             set_wishlist(request, food_id)

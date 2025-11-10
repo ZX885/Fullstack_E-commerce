@@ -68,7 +68,7 @@ function CreateProduct() {
         </div>
 
         <div className="form-group">
-          <label>Цена (₽)</label>
+          <label>Цена:</label>
           <input type="number" name="price" onChange={handleChange} required />
         </div>
 
