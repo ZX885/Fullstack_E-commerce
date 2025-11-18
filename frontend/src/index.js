@@ -7,18 +7,18 @@ import { globalReducer, context, initialState } from './conf/store';
 import { useReducer } from 'react';
 import { BrowserRouter } from "react-router-dom";
 import AllComponents from './components/AllComponents';
-
+import ContextProvider from './conf/Context';
 const AppWrapper = () => {
   const [state, dispatch] = useReducer(globalReducer, initialState);
 
   return (
-    <context.Provider value={{ ...state, dispatch }}>
+    <ContextProvider>
       <React.StrictMode>
         <BrowserRouter>
           <AllComponents />
         </BrowserRouter>
       </React.StrictMode>
-    </context.Provider>
+    </ContextProvider>
   );
 };
 

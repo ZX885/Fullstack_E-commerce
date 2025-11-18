@@ -1,14 +1,19 @@
-.head{
+.head {
     margin: 10px;
     padding: 10px;
     // max-width: 1200px;
     justify-content: center;
     align-items: center;
 }
+
 nav {
     display: flex;
     justify-content: space-between;
     text-align: center;
+
+    // .logo{
+    //     width: 100px;
+    // }
 
 
     .link {
@@ -21,6 +26,7 @@ nav {
             span {
                 margin: 10px;
             }
+
             span a:hover {
                 color: #FBD13E;
                 border-bottom: 1px solid #FBD13E;
@@ -32,6 +38,39 @@ nav {
                 color: aliceblue;
                 text-decoration: none;
             }
+
+            // .logout-btn {
+            //     padding: 3px 30px;
+            //     font-size: medium;
+            //     color: aliceblue;
+            //     border: none;
+            //     background: linear-gradient(268deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 100%);
+            // }
+
+            .logout-btn {
+                margin: 10px;
+                padding: 0.4em 2.4em;
+                font-size: 1rem;
+                display: inline-flex;
+                font-weight: 700;
+                align-items: center;
+                gap: 10px   ;
+                // justify-content: center;
+                line-height: 1;
+                font-family: 'Montserrat', sans-serif;
+                border-color: #3498db;
+                color: #ffffff;
+                box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
+                transition: all 150ms ease-in-out;
+
+                &:hover {
+                    // color: #000000;
+                    box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+                    background-color: #00000000;
+                }
+            }
+
+
         }
     }
 }

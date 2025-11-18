@@ -60,17 +60,25 @@ import { Outlet, Link, useNavigate } from "react-router-dom";
 import styles from './style.scss';
 import logo from './Logo.png';
 import Footer from "../Footer";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { logoutEntirely } from "../../conf/auth";
-import Profile from "../Profile/Profile";
+import { context } from "../../conf/store";
+// import Profile from "../Profile/Profile";
+import profile_p from './profile_p.png'
+import buy from './buy.png'
+import logout from './logout.png'
+
 export default function Nav() {
     const navigate = useNavigate();
-    const [isAuth, setIsAuth] = useState(false);
 
+    const [isAuth, setIsAuth] = useState(false);
+    const { state } =useContext(context)
+    
     useEffect(() => {
         const token = localStorage.getItem("access");
         setIsAuth(!!token);
     }, []);
+    
     // const owner = Profile.user.username
     const handleLogout = () => {
         logoutEntirely();
@@ -82,7 +90,7 @@ export default function Nav() {
         <div className="head" style={styles}>
             <nav>
                 <div>
-                    <img src={logo} alt="Logo" />
+                    <img className="logo" src={logo} alt="Logo" />
                 </div>
 
                 <div className="link">
@@ -93,25 +101,19 @@ export default function Nav() {
                         <span className="nav-link">
                             <Link to="/products">Товары</Link>
                         </span>
-                        <span className="nav-link">
-                            <Link to="/wishlist">Корзина</Link>
-                        </span>
                         {isAuth ? (
                             <>
                                 <span className="nav-link">
-                                    <Link to="/profile">Профиль</Link>
+                                    <Link to="/profile"><img src={profile_p} alt="" /></Link>
                                 </span>
-                                {/* { (owner == 'admin') => {
-                                    <div>
-                                        
-                                    </div>
-                                }} */}
-                                <span className="nav-link">
-                                            <Link to="/create_product">Создать продукт</Link>
-                                        </span>
+                                {state.isAdmin && (
+                                    <span className="nav-link">
+                                    <Link to="/create_product">Создать продукт</Link>
+                                </span>
+                                )}
 
                                 <button className="logout-btn" onClick={handleLogout}>
-                                    Выйти
+                                    Выйти<img src={logout} alt="" />
                                 </button>
                             </>
                         ) : (
@@ -124,6 +126,9 @@ export default function Nav() {
                                 </span>
                             </>
                         )}
+                        <span className="nav-link">
+                            <Link to="/wishlist"><img src={buy} alt="" /></Link>
+                        </span>
                     </div>
                 </div>
             </nav>

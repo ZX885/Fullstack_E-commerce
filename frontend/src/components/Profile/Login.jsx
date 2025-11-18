@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../conf/store.js";
 import { useNavigate } from "react-router-dom";
+import { context } from "../../conf/store.js";
 import './style.scss'
 
 export default function Login() {
+  const {dispatch} = useContext(context);
   const [form, setForm] = useState({ username: "", password: "" });
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
@@ -15,8 +17,20 @@ export default function Login() {
     e.preventDefault();
     try {
       const res = await axios.post(`${BASE_URL}/api/users/token/`, form);
+      
       localStorage.setItem("access", res.data.access);
       localStorage.setItem("refresh", res.data.refresh);
+      
+      //авторизован
+      dispatch({ type: "Auth" });
+
+      //определение admin
+      if (res.data.is_admin === true){
+        dispatch({ type: "SetAdmin" });
+      } else{
+        dispatch({ type: "NotAdmin"})
+      }
+      
       setMsg("Успешно вход в профиль");
       navigate("/profile");
     } catch {
