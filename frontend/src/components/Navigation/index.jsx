@@ -72,13 +72,13 @@ export default function Nav() {
     const navigate = useNavigate();
 
     const [isAuth, setIsAuth] = useState(false);
-    const { state } =useContext(context)
-    
+    const { state } = useContext(context)
+
     useEffect(() => {
         const token = localStorage.getItem("access");
         setIsAuth(!!token);
     }, []);
-    
+
     // const owner = Profile.user.username
     const handleLogout = () => {
         logoutEntirely();
@@ -104,12 +104,15 @@ export default function Nav() {
                         {isAuth ? (
                             <>
                                 <span className="nav-link">
+                                    <Link to="/wishlist"><img src={buy} alt="" /></Link>
+                                </span>
+                                <span className="nav-link">
                                     <Link to="/profile"><img src={profile_p} alt="" /></Link>
                                 </span>
                                 {state.isAdmin && (
                                     <span className="nav-link">
-                                    <Link to="/create_product">Создать продукт</Link>
-                                </span>
+                                        <Link to="/create_product">Создать продукт</Link>
+                                    </span>
                                 )}
 
                                 <button className="logout-btn" onClick={handleLogout}>
@@ -126,9 +129,6 @@ export default function Nav() {
                                 </span>
                             </>
                         )}
-                        <span className="nav-link">
-                            <Link to="/wishlist"><img src={buy} alt="" /></Link>
-                        </span>
                     </div>
                 </div>
             </nav>
